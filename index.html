@@ -1,0 +1,587 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>BLAW Exam 2 Quiz Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: home sheet (chapters, combine, cases) → one question card at a time with a progress strip → results sheet */
+:root {
+  --bg: #eef1f4;
+  --surface: #ffffff;
+  --fg: #1c2530;
+  --muted: #5b6878;
+  --line: #d3dae2;
+  --accent: #2f5d8a;
+  --accent-soft: #e2ebf4;
+  --good: #23704a;
+  --good-soft: #e1f1e8;
+  --bad: #a3392f;
+  --bad-soft: #f7e3e0;
+  --font-display: "Literata", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171d; --surface: #1b222b; --fg: #e4e9ef; --muted: #98a5b4; --line: #2e3844;
+    --accent: #7fa9d6; --accent-soft: #1f2d3c; --good: #6cc59a; --good-soft: #17301f;
+    --bad: #ec8b80; --bad-soft: #3a1f1c; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171d; --surface: #1b222b; --fg: #e4e9ef; --muted: #98a5b4; --line: #2e3844;
+  --accent: #7fa9d6; --accent-soft: #1f2d3c; --good: #6cc59a; --good-soft: #17301f;
+  --bad: #ec8b80; --bad-soft: #3a1f1c; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 660px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 48px; display: flex; flex-direction: column; gap: 16px; }
+header { display: flex; flex-direction: column; gap: 4px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+h1 { font-family: var(--font-display); font-weight: 650; font-size: 1.6rem; line-height: 1.2; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--font-display); font-weight: 650; font-size: 1.15rem; margin: 0; }
+.note { font-size: 14px; color: var(--muted); margin: 0; }
+.progress { display: flex; gap: 2px; }
+.progress span { flex: 1; height: 6px; border-radius: 3px; background: var(--line); }
+.progress span.ok { background: var(--good); }
+.progress span.no { background: var(--bad); }
+.progress span.cur { background: var(--accent); }
+.meta { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.chlist { display: flex; flex-direction: column; gap: 8px; }
+.ch { display: flex; align-items: center; gap: 12px; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.ch .num { flex: none; width: 34px; height: 34px; border-radius: 8px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ch .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.ch .txt b { font-weight: 600; }
+.ch .txt small { color: var(--muted); font-size: 13px; }
+.ch input { width: 22px; height: 22px; accent-color: var(--accent); flex: none; }
+.small-btn { font: inherit; font-weight: 600; font-size: 14px; background: var(--accent); color: var(--surface); border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; min-height: 40px; flex: none; }
+.count { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 14px; color: var(--muted); }
+.seg { display: flex; border: 1.5px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { font: inherit; font-size: 14px; font-weight: 600; background: var(--surface); color: var(--fg); border: none; padding: 8px 12px; cursor: pointer; min-height: 40px; }
+.seg button + button { border-left: 1.5px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+.toggle { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+.toggle input { width: 20px; height: 20px; accent-color: var(--accent); }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.tag.assigned { background: var(--good-soft); color: var(--good); }
+.q { font-family: var(--font-display); font-weight: 500; font-size: 1.12rem; line-height: 1.45; margin: 0; }
+.opts { display: flex; flex-direction: column; gap: 10px; }
+.opt { text-align: left; font: inherit; font-size: 15px; color: var(--fg); background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer; min-height: 48px; }
+.opt:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+.opt:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.opt .letter { flex: none; width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font-size: 13px; font-weight: 600; color: var(--muted); }
+.opt.correct { border-color: var(--good); background: var(--good-soft); }
+.opt.correct .letter { background: var(--good); border-color: var(--good); color: var(--surface); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.opt.wrong .letter { background: var(--bad); border-color: var(--bad); color: var(--surface); }
+.opt:disabled { cursor: default; }
+.linkbtn { align-self: flex-start; background: none; border: none; color: var(--accent); font: inherit; font-size: 14px; font-weight: 600; padding: 4px 0; cursor: pointer; }
+.hint { font-size: 14px; color: var(--muted); font-style: italic; }
+.feedback { border-radius: 10px; padding: 12px 14px; font-size: 15px; }
+.feedback.good { background: var(--good-soft); }
+.feedback.bad { background: var(--bad-soft); }
+.feedback strong { display: block; margin-bottom: 2px; }
+.feedback.good strong { color: var(--good); }
+.feedback.bad strong { color: var(--bad); }
+.next { font: inherit; font-weight: 600; font-size: 16px; background: var(--accent); color: var(--surface); border: none; border-radius: 10px; padding: 14px; cursor: pointer; min-height: 48px; width: 100%; }
+.next:disabled { opacity: .45; cursor: default; }
+.ghost { font: inherit; font-weight: 600; font-size: 15px; background: var(--surface); color: var(--accent); border: 1.5px solid var(--accent); border-radius: 10px; padding: 12px; cursor: pointer; min-height: 48px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+.row > button { flex: 1 1 160px; }
+.score { font-family: var(--font-display); font-size: 3rem; font-weight: 650; line-height: 1; font-variant-numeric: tabular-nums; }
+.breakdown { display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+.breakdown div { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+.miss { border-top: 1px solid var(--line); padding-top: 12px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.miss .mq { font-weight: 600; }
+.miss .yours { color: var(--bad); }
+.miss .right { color: var(--good); }
+textarea { width: 100%; min-height: 120px; font: inherit; font-size: 13px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+@media (prefers-reduced-motion: no-preference) { .card { animation: in .2s ease-out; } @keyframes in { from { transform: translateY(4px); } to { transform: none; } } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">BLAW · Exam 2 · Chapters 6–10</span>
+    <h1>Exam 2 Quiz Bank</h1>
+  </header>
+  <div class="progress" id="progress"></div>
+  <div class="meta" id="meta"></div>
+  <main id="stage"></main>
+</div>
+
+<script>
+/* Question format: [prompt, correct answer, wrong, wrong, wrong, hint, explanation]
+   The correct answer is listed first here; answer order is shuffled every time. */
+const CH = {
+6: { name: "Products Liability", q: [
+["A bottler has world-class quality control, but one exploding bottle still slips through and blinds a customer. Under which theory is the bottler most likely liable?","Strict liability, but not negligence","Negligence only","Neither, because the bottler used all possible care","Only the implied warranty of title","Which theory doesn't care how careful the seller was?","Strict liability applies even when the seller used all possible care. Negligence needs carelessness, which the bottler didn't show."],
+["What is the main advantage negligence theory has over warranty theory?","Privity of contract is never relevant","The plaintiff never has to prove a defect","The manufacturer has no defenses available","It allows recovery for purely economic losses","Warranty needs a deal. Negligence doesn't.","A bystander with no contract can still sue in negligence. Warranty comes from contract law, so it can require privity."],
+["Which of these is a major difficulty with using NEGLIGENCE as a products liability theory?","Proving the manufacturer actually breached a duty of care","Showing a contract with the manufacturer","Giving the seller notice within a reasonable time","Suing within four years of delivery","Which one is a negligence problem, not a warranty problem?","A defect alone doesn't prove the maker was careless. The other choices are warranty problems."],
+["A heart device maker argues that because the FDA approved its device, a patient's state negligence claim should be dismissed. What defense is this?","Federal preemption","State-of-the-art defense","Assumption of risk","Statute of repose","Look for the federal clue.","Preemption: meeting a federal standard overrides the state claim. Common with FDA devices, cigarettes, pesticides, boat propellers, and motor vehicles."],
+["In which type of case is federal preemption most commonly raised?","Pesticides","Kitchen knives","Living room furniture","Children's clothing","Heavily federally regulated products.","Preemption comes up with cigarettes, FDA-approved medical devices, boat propellers, pesticides, and motor vehicles."],
+["What is the standard for a design defect?","Whether the designer used reasonable care to make it safe for foreseeable use","Whether this unit departed from the company's blueprint","Whether the product was perfectly safe in every use","Whether it matched the industry's average safety level","A bad recipe, not one bad cookie.","Design defect: did the designer use reasonable care to make the product reasonably safe for its foreseeable use? Safer competing designs hurt the maker."],
+["Every stroller in a product line folds up if bumped, while competitors use a simple lock that prevents it. A child is hurt. What kind of defect is this?","Design defect","Manufacturing defect","Breach of the warranty of title","No defect, since all units match the plan","Is every unit like this?","When the whole product line has the problem, it's a design defect. A manufacturing defect is one unit that came out wrong."],
+["One toaster came off the line missing a screw and overheated. All the others are fine. What's the plaintiff's easiest proof of the defect?","The manufacturer's own design specifications","A competitor's safer toaster","Federal safety standards","The plaintiff's word that she was hurt","One bad cookie: compare it to the recipe.","For a manufacturing defect, the maker's own blueprint shows how the product should have been made."],
+["What is the legal standard for when a manufacturer has a duty to warn?","Whether the danger was reasonably foreseeable","Whether a federal agency required a label","Whether the maker knew the user personally","Whether every risk was listed on the label","Foreseeability.","The duty to warn turns on reasonable foreseeability, including how likely misuse is and whether the hazard is obvious."],
+["A kitchen knife is sold with no label warning that it's sharp. A user cuts himself. Is it defective for failure to warn?","No, because the danger of a sharp knife is obvious","Yes, because every product needs a warning","Yes, because knives are unreasonably dangerous","No, because knives are unavoidably unsafe","Is the danger obvious?","There's no duty to warn about obvious dangers."],
+["Why do many strict liability cases focus on failure to warn instead of proving a complex manufacturing defect?","Failure to warn is easier to prove and doesn't need costly experts","Failure to warn allows automatic punitive damages","Manufacturing defects aren't covered by 402A","Failure to warn claims avoid the statute of repose","Complex product, costs, experts.","Proving a defect in complex engineering needs expensive, hard-to-find experts. Showing a missing warning doesn't."],
+["Which type of defect claim are injured plaintiffs most likely to bring?","Failure to warn","Manufacturing defect","Design defect","Breach of the warranty of title","The cheap, easy claim.","Failure to warn is the claim plaintiffs rely on most, because it's the easiest to prove."],
+["According to your textbook, what is the primary role courts play in products liability law?","Deciding who pays the true costs of consumer products","Writing product safety standards","Approving products before they're sold","Protecting businesses from lawsuits","Policing the free enterprise system.","Courts police the free enterprise system by deciding how the true costs of consumer culture are allocated, especially when legislation falls short."],
+["What does the Restatement (Section 402A) rule of strict liability focus on?","The condition of the product when it was sold","How carefully the seller made the product","Whether the buyer had a contract with the seller","Whether the seller promised it was safe","Strict liability = no excuses.","402A focuses on the product's condition, not the seller's care."],
+["A helmet company runs the industry's most careful testing. One defective helmet still cracks and injures a rider. Under strict liability, is the company liable?","Yes, because the focus is on the product's condition","No, because it exercised all possible care","No, because the rider must prove negligence","Only if it violated a federal standard","Is being careful an excuse?","Strict liability applies even if the seller used all possible care."],
+["Which of these is 'unreasonably dangerous' under the Restatement?","Coffee contaminated with cleaning chemicals","Hot coffee that can burn if spilled","Coffee with caffeine that keeps people awake","Coffee that stains teeth over time","Good whiskey vs. bad whiskey.","Unreasonably dangerous means dangerous beyond what the ordinary consumer would expect."],
+["Which statement about defective condition is TRUE?","A product isn't defective if it was safe for normal handling when sold","A capped glass bottle is defective because it breaks if dropped","Candy is defective because too much makes you sick","Injury alone proves the product was defective","Safe for normal handling?","A product safe for normal handling and consumption isn't defective. Injury alone doesn't prove a defect."],
+["A man eats three family-size bags of chips at once and gets sick. Are the chips 'defective' under 402A?","No, because they were safe for normal consumption","Yes, because the chips made him sick","Yes, because there was no portion warning","No, because food can never be defective","Like the textbook's candy example.","A product isn't defective just because overuse can cause harm."],
+["A dairy farmer sells eggs with no allergy warning. A customer allergic to eggs gets sick. Are the eggs 'unreasonably dangerous'?","No, because people with common allergies are presumed to know them","Yes, because anything causing illness is unreasonably dangerous","Yes, because sellers must warn about all allergies","No, because eggs are unavoidably unsafe","Your textbook uses this example.","Sellers don't have to warn about common allergens like eggs."],
+["A sleep aid is safe at one pill but dangerous at three or more. The package has no dosage limit. Under 402A, the product is:","Defective, because it lacks an adequate dosage warning","Not defective, because it's safe at normal doses","Not defective, because overdosing is unforeseeable","Defective only if the maker was negligent","Dosage warnings.","A product safe only in limited doses is defective without an adequate dosage warning."],
+["A rabies vaccine sometimes has serious side effects, but rabies is almost always fatal. It comes with proper warnings. Is it 'unreasonably dangerous'?","No, it's unavoidably unsafe and its benefits outweigh the risk","Yes, any serious side effect makes it unreasonably dangerous","Yes, because it causes physical harm","No, because vaccines are services, not goods","Unavoidably unsafe.","An unavoidably unsafe product with important benefits and proper warnings isn't unreasonably dangerous."],
+["Asbestos workers sued insulation makers. Why could they recover even though insulation is useful?","A useful product can be unreasonably dangerous without adequate warnings","Insulation has no useful purpose","Asbestos was banned when it was sold","The workers had contracts with the makers","Borel.","A useful product can still be unreasonably dangerous without warnings, because workers have a right to decide whether to take the risk."],
+["A ladder sold 25 years ago collapses. The state bars product suits more than 10 years after the original sale. Which defense applies?","Statute of repose","State-of-the-art defense","Federal preemption","Assumption of risk","Product's age or technology?","A statute of repose cuts off liability a set number of years (usually 6 to 12) after sale."],
+["A plaintiff says a 2008 car should have had automatic emergency braking. The maker proves the technology didn't exist for cars until 2016. Which defense?","State-of-the-art defense","Statute of repose","Federal preemption","Comparative negligence","Product's age or technology?","State-of-the-art: the safer technology was impossible to use when the product was made."],
+["A salesperson says a used car is in 'A-1 shape' and 'mechanically perfect.' It breaks down. Most likely:","This creates an express warranty","This is just puffery","This creates only an implied warranty of fitness","No warranty, because 'guarantee' wasn't used","Specific and measurable?","Specific factual claims create express warranties. No special words are needed."],
+["A clerk says, 'This is the best vacuum on the market, you'll love it.' It's mediocre. Did the store breach an express warranty?","No, this is puffery, not a specific fact","Yes, any statement about quality is a warranty","Yes, because the clerk works for a merchant","No, because warranties must be in writing","Opinion or fact?","General praise and opinion are puffery, not warranties."],
+["A paint store shows a color card labeled 'Ocean Blue.' The paint delivered is clearly green. What was breached?","An express warranty created by the sample","The implied warranty of merchantability","The implied warranty of fitness","The implied warranty of title","Did the seller show something?","An express warranty can come from a fact, a description, or a sample or model."],
+["A watch's package says 'Waterproof to 50 meters.' It leaks at 10 meters. What was breached?","An express warranty created by the description","The implied warranty of fitness","The implied warranty of title","Nothing, because labels are puffery","Did the seller state something specific?","A description of the goods creates an express warranty that they'll match it."],
+["A man buys a TV with a two-year full warranty and sells it to his neighbor after six months. It breaks. Is the neighbor covered under Magnuson-Moss?","Yes, a full warranty covers any owner during the period","No, full warranties cover only the original buyer","No, warranties end when the product is sold","Only if he pays a transfer fee","Full = generous.","A full warranty covers anyone who owns the product during the warranty period."],
+["Which is a requirement of a FULL warranty under Magnuson-Moss?","Refund or replacement if it can't be fixed after reasonable tries","It must cover every single part","It covers only the original buyer","The buyer pays to ship it to the factory","Full = generous.","A full warranty means free repair in a reasonable time, coverage for any owner, and a refund or replacement if it can't be fixed."],
+["A warranty covers parts but not labor, and the buyer must bring the product in for service. What kind of warranty is this?","A limited warranty","A full warranty","A phantom warranty","An implied warranty of merchantability","Less than full.","Parts only or bring-it-in terms make it a limited warranty."],
+["A seller gives a written warranty, then adds fine print disclaiming the implied warranty of merchantability. Under Magnuson-Moss:","That disclaimer isn't allowed once a written warranty is given","The disclaimer works if it's conspicuous","The written warranty becomes void","Magnuson-Moss doesn't cover appliances","Phantom warranties.","Magnuson-Moss banned the 'phantom warranty': give a written warranty and you can't disclaim implied ones (a limited warranty can only limit them to its duration)."],
+["A pedestrian is hit by a car with faulty brakes and sues the maker for negligence. What's the main advantage of negligence for her?","She doesn't need a contract with the manufacturer","She doesn't have to prove anyone was careless","She doesn't have to prove a defect","She can recover purely economic losses","Who can use negligence?","Negligence doesn't require privity."],
+["A woman sells her old toaster at a yard sale. It shorts and burns the buyer. Is she strictly liable under 402A?","No, because she isn't in the business of selling toasters","Yes, because the toaster was defective","Yes, because she sold it for money","No, because used goods are excluded","Business seller?","Strict liability applies only to sellers in the business of selling that product."],
+["A movie theater sells popcorn with a razor blade in it, arguing it's in the movie business. Under 402A:","The theater can be strictly liable","The theater wins because popcorn isn't its main business","Only the popcorn supplier can be liable","Only negligence can apply","Does it regularly sell popcorn?","A seller doesn't have to be solely in that business. A theater selling popcorn counts."],
+["A worker removes a saw's safety guard after buying it, then gets hurt. The maker's best 402A argument is:","The product didn't reach the user without substantial change","The worker lacked privity","The saw was unavoidably unsafe","Federal preemption","What happened after the sale?","402A requires the product to reach the user without substantial change."],
+["A cargo plane's engine fails; it lands safely. Nobody is hurt, but the company loses money on repairs. Can it recover under strict liability?","No, because its losses were purely economic","Yes, because the engine was unreasonably dangerous","Yes, because strict liability covers all damage","No, because the plane was bought used","Atlas Air.","The economic loss rule: strict liability covers physical harm, not purely economic loss."],
+["Two large corporations with equal bargaining power clearly disclaim strict liability in their equipment contract. Most likely:","The disclaimer can be enforced in this commercial setting","It's void because strict liability can never be disclaimed","It works only if it mentions 'merchantability'","Magnuson-Moss makes it illegal","Consumer or two equal companies?","Courts (Kaiser Steel) have enforced clear disclaimers between commercial parties of equal strength."],
+["A consumer's receipt says 'Seller disclaims all strict liability.' The blender explodes and injures her. Does the disclaimer block her claim?","No, disclaimers don't defeat a consumer's strict liability claim","Yes, because it was on the receipt","Yes, if it was in bold print","No, because receipts are never contracts","Consumer.","Disclaimers don't block a consumer's 402A claim."],
+["A user stands on the top step of a ladder, which is unreasonable but common, and the step breaks. The maker claims misuse. Does it work?","No, if the misuse was foreseeable","Yes, because standing on the top is unreasonable","Yes, because he assumed the risk","No, because misuse is never a defense","Eastman v. Stanley Works.","Misuse is a defense only when it's unforeseeable."],
+["A customer knows his brakes are defective and dangerous, could get them fixed, and drives anyway. He crashes. The maker's best defense:","Assumption of risk","Misuse","Statute of repose","State-of-the-art","He knew and went ahead.","Assumption of risk: he knew of the defect and danger, could avoid it, and proceeded anyway."],
+["A buyer tells a clerk she needs paint that dries overnight. The clerk picks one that takes two days. Which warranty was breached?","Implied warranty of fitness for a particular purpose","Implied warranty of merchantability","Express warranty","Implied warranty of title","Special need plus reliance.","She told the seller her specific need and relied on his pick. The paint is fine for normal use, so it's fitness, not merchantability."],
+["A shopper buys an umbrella without talking to anyone. It leaks in light rain. Which warranty is breached?","Implied warranty of merchantability","Implied warranty of fitness","Express warranty","No warranty, since the store said nothing","No conversation, no fitness.","It doesn't work for ordinary use, so it's merchantability."],
+["A buyer's 'used laptop' works fine, but police seize it as stolen. Which warranty did the store breach?","Implied warranty of title","Implied warranty of merchantability","Implied warranty of fitness","Express warranty","Was it stolen?","Title is about ownership. The store didn't have the right to sell it."],
+["When warranties conflict and can't be reconciled, which one wins under the UCC?","Implied warranty of fitness for a particular purpose","Express warranty","Implied warranty of merchantability","Whichever came first","Personal beats general.","Unresolvable conflicts go in favor of the implied warranty of fitness."],
+["A buyer discovers a defect five years after delivery. Can she still sue for breach of warranty under the UCC?","No, the four-year period starts at delivery","Yes, the clock starts at discovery","Yes, warranty claims have no time limit","No, warranty claims must be filed within one year","Four years from the front door.","UCC 2-725: four years from delivery, not discovery."],
+["A neighbor sells her used lawnmower at a garage sale. It breaks on first use. Did she breach the implied warranty of merchantability?","No, because she isn't a merchant in lawnmowers","Yes, because it doesn't work for normal mowing","Yes, because every sale includes it","No, because used goods can't carry warranties","Who gives merchantability?","Only merchants who deal in those goods give the merchantability warranty."]
+]},
+7: { name: "Contracts", q: [
+["Which is the textbook's example of a unilateral contract?","'I'll pay you $5 if you wash my car,' and the person does it","Two neighbors trade promises to buy and sell a mower","A diner orders lunch without discussing price","A court makes a homeowner pay for a mistaken repair","Promise for an act.","A unilateral contract is a promise for an act. Only doing the act accepts it."],
+["A poster offers $50 to anyone who returns a lost dog. What kind of contract is this?","Unilateral","Bilateral","Quasi-contract","Implied-in-law","Promise for an act.","Only one side promises; returning the dog is the acceptance."],
+["What is the main difference between contract duties and tort duties?","Contract duties are chosen through bargaining; tort duties are imposed by law","Contract duties are imposed by law; tort duties are chosen","Both come only from written agreements","Tort duties apply only to businesses","Who decides the duty exists?","You agree to contract duties. Tort duties apply whether you like it or not."],
+["How does the Restatement of Contracts define a contract?","A promise the law gives a remedy for if it's broken","An obligation imposed by law to prevent unjust enrichment","Any signed written agreement","An agreement both sides have fully performed","The other answer describes a quasi-contract.","A contract is a promise or set of promises for whose breach the law gives a remedy."],
+["Which of these describes a QUASI-contract?","An obligation imposed by law to prevent unjust enrichment","A promise the law gives a remedy for if broken","An agreement shown by conduct, not words","A contract neither side has performed yet","'Quasi' means 'sort of.'","There's no real agreement. A court imposes the obligation so no one gets a free benefit."],
+["A caterer agrees to cater a party next month, and the host will pay afterward. Nothing has happened yet. What kind of contract is this right now?","Executory","Executed","Quasi-contract","Voidable","Timing.","Executory = not yet performed. Executed = fully performed by both sides."],
+["A band played a wedding and got paid in full. What kind of contract is it now?","Executed","Executory","Quasi-contract","Voidable","Both sides finished.","Fully performed by both sides means executed."],
+["A customer sits in a barber's chair and gets a haircut without discussing price. What kind of contract formed?","Implied contract","Express contract","Quasi-contract","No contract, since price wasn't discussed","Words or conduct?","An implied contract is a real agreement shown by conduct."],
+["A painter mistakenly paints your house, thinking you hired him. You watch and say nothing. What can a court impose so he gets paid?","Quasi-contract","Express contract","Implied-in-fact contract","Nothing at all","Was there any agreement?","No agreement, but a court can impose a quasi-contract to prevent unjust enrichment."],
+["Classify in order: (1) a signed agreement to sell a car; (2) pumping gas at a self-serve station; (3) a court making a homeowner pay a contractor who mistakenly fixed her roof while she watched.","Express, implied, quasi","Express, express, implied","Implied, quasi, express","Quasi, implied, express","Words, conduct, no agreement.","Express = stated terms. Implied = shown by conduct. Quasi = imposed by a court."],
+["A seller knowingly says a car 'has never been in a flood,' though it was submerged last year. The buyer relies on it. What defense does the buyer have?","Fraudulent misrepresentation, making the contract voidable","Puffery, so no remedy","Mutual mistake","Undue influence, making it void","Intentional lie about a fact.","An intentional misstatement of a material fact the buyer relied on is fraud. The contract is voidable by the buyer."],
+["A seller says, 'In my opinion, these are the tastiest apples in the county.' They're bland. Can the buyer claim fraud?","No, this is opinion, not a statement of fact","Yes, any false statement is fraud","Yes, because the seller is a merchant","No, because fraud must be in writing","Fact or opinion?","Fraud requires a misstatement of fact. Opinion and sales talk don't count."],
+["A seller knows of a cracked foundation hidden behind new drywall, says nothing, and the buyer never asks. Can the buyer rescind after closing?","Yes, because the defect couldn't be found with reasonable diligence","No, because the seller never said anything false","Only if the buyer had asked about it","No, because the buyer bore the risk","Hidden on purpose.","Nondisclosure can count as misrepresentation when the buyer couldn't discover the truth with reasonable diligence."],
+["What is required to prove economic duress?","An improper threat, no reasonable alternative, and actual inducement","A relationship of trust and isolation","A false statement the victim relied on","A threat that would scare a reasonable person","Threat + no way out.","Economic duress: improper threat, no reasonable alternative, and the threat actually caused the agreement."],
+["A supplier threatens to stop deliveries unless paid 20% more. Another supplier nearby sells the same goods at the old price, but the buyer pays anyway. Economic duress?","No, because the buyer had a reasonable alternative","Yes, any threat to stop delivery is duress","Yes, because the price went up","No, because duress covers only physical threats","Was there another option?","Without 'no reasonable alternative,' there's no duress."],
+["Midway through a job, a contractor threatens to walk off unless paid 30% more. No one else could finish in time. The owner agrees. What can the owner argue?","Economic duress","Undue influence","No defense, because the threat was economic","No defense, because a reasonable person wouldn't feel threatened","Is there a threat?","An improper threat plus no reasonable alternative is economic duress."],
+["An adult son keeps his ill mother away from her friends and lawyer, then persuades her to sign over her house for almost nothing. No threats. Which defense fits?","Undue influence","Economic duress","Fraud in the execution","Unilateral mistake","Threat or trust?","Undue influence: unfair persuasion by someone in a position of trust, often while isolating the victim."],
+["A 16-year-old agrees to buy a bike from an adult. The adult changes his mind. Can he cancel because the buyer is a minor?","No, only the minor can cancel; the adult is bound","Yes, either side can cancel","Yes, because contracts with minors are void","No, because the minor already has the bike","Who holds the key?","A minor's contract is voidable by the minor only."],
+["A 17-year-old living on her own rents an apartment for three months, then refuses to pay, claiming she's a minor. What is she likely liable for?","The reasonable value of the necessities","Nothing, because minors can always cancel","The full rent plus punitive damages","Double the rent","Food, shelter, clothing, medicine.","For necessities already received, a minor owes their reasonable value."],
+["An executive jokingly says at a public hearing, 'I'll pay $100,000 to anyone who finds a crooked board.' Someone does. Is the offer binding?","Yes, if a reasonable listener would think it was serious","No, because he was joking","No, because the audience laughed","Only if the offer was written","Objective standard.","What counts is how it looks to a reasonable person, not secret intent."],
+["At a party, a man laughs and says, 'I'll sell you my new truck for a dollar!' Everyone laughs, including him. His friend hands him $1. Is there a contract?","No, because a reasonable person would see it as a joke","Yes, because secret intent is ignored","Yes, because both said the words","No, because people at parties lack capacity","Would a reasonable person take it seriously?","The objective standard cuts both ways. Here no reasonable person would think it was serious."],
+["What must be proven for promissory estoppel (per your professor's Blinn slide)?","A promise, reasonable reliance, and substantial economic detriment","An offer, acceptance, and consideration","A threat, no alternative, and inducement","A writing, signature, and price","Promise, reliance, harm.","Promissory estoppel enforces a promise without consideration when someone reasonably relied on it and was hurt."],
+["A company honestly promises an applicant a job. He quits his old job and moves. The company withdraws before he starts. His best argument?","Promissory estoppel","Fraud in the inducement","Quasi-contract","Mutual mistake","He relied and got hurt; nobody lied.","No consideration, but reliance on the promise makes promissory estoppel the fit."],
+["A dad says, 'I'll give you my old truck next month.' He asks for nothing, and the son does nothing differently. The dad changes his mind. Enforceable?","No, it's a gift promise with no reliance","Yes, through promissory estoppel","Yes, because the son accepted","Yes, as a quasi-contract","Did the son rely on it?","No consideration and no reliance means an unenforceable gift promise."],
+["A woman sells her $20,000 car to her nephew for $100. Is there valid consideration?","Yes, courts don't require consideration to be close in value","No, it must be at least half the value","No, it must equal market value","Only if the sale is in writing","Do courts judge the price?","Courts only ask whether something was bargained for, not whether it was a fair deal."],
+["An uncle promises his nephew $5,000 if he doesn't drink or smoke until 21. He complies. Is there consideration?","Yes, giving up a legal right at someone's request is consideration","No, because quitting only helped the nephew","No, family promises aren't serious","Only through promissory estoppel","Hamer v. Sidway.","Forbearance counts as consideration, even if it benefits you."],
+["A singer under contract for $2,000 demands $3,000 the day before the same show. The venue agrees, then pays $2,000. Can she get the extra $1,000?","No, because she gave nothing new for it","Yes, because the venue agreed","Yes, because changes don't need a writing","No, because the price was fixed","Pre-existing duty.","Doing what you already owe isn't consideration under common law."],
+["An at-will employee is told, 'Stay one more year and get a $5,000 raise.' She stays. Is there consideration?","Yes, because she could have left anytime","No, she already had to keep working","No, raise promises must be written","Only through promissory estoppel","At-will or under contract?","An at-will employee has no duty to stay, so staying is something new."],
+["An offer doesn't say how to accept. The offeree mails an acceptance Monday; the offeror calls to revoke Tuesday; the letter arrives Thursday. Is there a contract?","Yes, the acceptance counted when mailed","No, the revocation came before the letter arrived","No, acceptances count only when read","Yes, but only once it's opened","Sent = done.","Mailbox rule: an acceptance is effective when sent if the offer didn't say otherwise."],
+["An offer says, 'Accept only by signed letter by Friday.' The offeree calls Wednesday and says 'I accept.' Is there a contract?","No, the offer's required method must be used","Yes, a phone call is reasonable","Yes, under the mailbox rule","No, phone calls never create contracts","Who controls the offer?","When the offer names a method, only that method works."],
+["An offer says, 'Your acceptance counts only when I receive it.' The acceptance is mailed but lost. Is there a contract?","No, because the offer required receipt","Yes, under the mailbox rule","Yes, because mail is reasonable","No, because a lost letter is a rejection","The offer set its own rule.","The mailbox rule is only a default. The offeror can override it."],
+["A seller offers a car for $10,000. The buyer says, 'I'll pay $8,000.' The seller refuses. The buyer then says, 'Fine, I accept $10,000.' Contract?","No, the counteroffer ended the original offer","Yes, the offer was still open","Yes, he agreed to the price","No, offers expire after a day","What does a counteroffer do?","A counteroffer rejects and terminates the original offer."],
+["Both sides believe a cow is barren and agree on a low price. She's pregnant and worth far more. Can the seller undo the deal?","Yes, mutual mistake about a basic assumption","No, the seller set the price","No, mistakes about value never matter","Yes, because the buyer committed fraud","Sherwood v. Walker.","Mutual mistake: shared basic mistake, material effect, and the seller didn't bear the risk."],
+["A dealer sells an 'old worthless painting' for $100 without an appraisal. It's a masterpiece worth $1 million. Can he undo the sale?","No, he bore the risk by selling without checking","Yes, it's a mutual mistake","Yes, the buyer got too good a deal","No, paintings aren't goods","Who took the gamble?","Mutual mistake fails when the party seeking relief knowingly took the risk."],
+["Which must be in writing under the Statute of Frauds?","An oral agreement to sell a house","An oral agreement to sell a $300 guitar","An oral agreement to mow a lawn next week","An oral $1 million photo shoot tomorrow","Land, Long, Love, Loans, Loot.","Contracts for land need a writing."],
+["Two people orally agree on a used sofa for $600. Does this need to be in writing?","Yes, because it's a sale of goods for $500 or more","No, only land contracts need a writing","No, furniture sales are always oral","Yes, because every sale needs a writing","What's the dollar line?","Under the UCC, goods of $500 or more need a writing."],
+["A woman tells a lender, 'If my brother doesn't pay his car loan, I will.' Nothing is written. Can the lender enforce it?","No, a promise to pay another's debt needs a writing","Yes, because the lender relied on it","Yes, promises between adults are binding","No, because car loans are under the UCC","Loans.","Promises to pay someone else's debt must be in writing."],
+["On July 1, parties orally agree to a one-year job starting August 1. Does it need a writing?","Yes, it can't be completed within one year of the agreement","No, the job is only one year","No, employment never needs a writing","Yes, all jobs involve land","Count from the day they agreed.","The one-year test runs from the date of the agreement."],
+["A gym contract says it isn't liable for any injury, even ones an employee causes on purpose. An employee intentionally injures a member. Is the clause enforceable for that?","No, exculpatory clauses never cover intentional or reckless harm","Yes, the member signed it","Yes, if it was in bold","No, exculpatory clauses are never enforceable","Was it on purpose?","Waivers never protect intentional or reckless harm."],
+["A city bus ticket says the company isn't liable for driver negligence. A passenger is hurt when the driver carelessly runs a red light. Enforceable?","No, a public service can't waive its own negligence","Yes, because it was only negligence","Yes, because she accepted the ticket","No, but only because it was reckless","Something people need to get around.","Paid public services can't excuse themselves from negligence."],
+["An employer makes workers sign a waiver of its own negligence. A worker is hurt by a machine the employer carelessly didn't fix. Enforceable?","No, employers can't waive negligence toward their workers","Yes, because it was only negligence","Yes, because she signed when hired","No, but only because factories are public services","Is it the worker's job?","An employer can't contract out of negligence liability for employee injuries."],
+["A private rock-climbing gym uses a clear waiver of ordinary negligence. A member is hurt when an employee carelessly ties a rope. Enforceable?","Likely yes, for a non-essential recreational activity","No, gyms are public services","No, waivers can't cover any negligence","Yes, and it would cover intentional harm too","Public necessity or job?","Clear waivers of ordinary negligence are generally enforced for private recreation."],
+["A seller backs out of a contract to sell a house. The buyer wants the house, not money. What can the court order?","Specific performance, because real estate is always unique","Nominal damages only","Punitive damages","Nothing, because he changed his mind","Unique?","Specific performance is for unique items, and land is always unique."],
+["A supplier backs out of delivering 500 bags of standard cement. Will a court order specific performance?","No, because the cement can be bought elsewhere","Yes, because cement is a good under the UCC","Yes, because the builder needs it","No, because it requires a writing","Can you buy it somewhere else?","Ordinary goods aren't unique, so money damages are enough."],
+["A carrier delivers a mill's broken shaft late. It was never told the mill couldn't run without it. Can the mill recover lost profits?","No, the loss wasn't foreseeable to the carrier","Yes, all losses from a breach are recoverable","Yes, as punitive damages","No, carriers can't be sued","Hadley v. Baxendale.","Consequential damages must be foreseeable when the contract is made."],
+["A chef breaks her contract. The restaurant pays a staffing agency $2,000 to find a replacement. That $2,000 is:","Incidental damages","Consequential damages","Nominal damages","Punitive damages","Cost of dealing with the breach.","Incidental = costs of handling the breach. Consequential = losses that flow from it."],
+["A plumber's bad repair floods the basement, ruining furniture and carpet. That cost is:","Consequential damages","Incidental damages","Nominal damages","Liquidated damages","A loss that flowed from the breach.","Foreseeable losses that flow from a breach are consequential damages."],
+["A seller breaches, but the buyer immediately buys the same item elsewhere at the same price, at no extra cost. What can the buyer recover?","Nominal damages","Consequential damages","Specific performance","Punitive damages","No real loss.","A breach with no real loss gets a token amount, like $1."],
+["A homeowner hires a painter for $3,000. He quits before starting; another charges $3,500. What are the compensatory damages?","$500","$3,000","$3,500","$1","Where would she be if he'd done it?","Compensatory damages put you where you'd be if the contract had been performed."],
+["A $5,000 landscaping contract says the landscaper owes $1 million if he's late. Will a court enforce that?","No, it's a penalty, not a reasonable estimate","Yes, both sides agreed","Yes, liquidated damages always apply","No, liquidated damages are never allowed","Reasonable or a penalty?","Liquidated damages are enforced only when reasonable."],
+["Can a plaintiff usually get punitive damages for breach of contract?","Generally no, unless the breach is also a willful tort","Yes, whenever the breach was intentional","Yes, it's standard in contracts","No, never in any situation","Compensate, not punish.","Contract law compensates. Punitive damages are rare."],
+["A company buys 500 laptops from a supplier. What law governs?","UCC Article 2","Common law","The Restatement of Contracts","The Magnuson-Moss Act","Goods or services?","Sales of goods are governed by UCC Article 2."]
+]},
+8: { name: "UCC Sales & Leases", q: [
+["Why was the UCC adopted?","To make commercial rules uniform across the states","To replace federal trade regulation","To give consumers more rights than merchants","To turn the Restatement into a statute","States used to differ.","Inconsistent state rules made interstate business hard. The UCC made them uniform."],
+["Between merchants, a seller's acceptance adds 'Goods ship on standard pallets.' The order didn't limit acceptance; the buyer never objects. Is it part of the contract?","Yes, none of the three blockers applies","No, acceptances can't add terms","No, the buyer never signed off","Only if the seller resends it","Limited? Material? Objected?","Minor added terms get in between merchants unless the offer limited acceptance, the term is material, or someone objects."],
+["Between merchants, a seller's acceptance adds fine print requiring arbitration in another state. The buyer doesn't object. Does it get in automatically?","No, it materially alters the deal","Yes, the buyer didn't object","Yes, all merchant terms are included","No, it turns the acceptance into a counteroffer","Small extra or big change?","Material changes don't get in automatically, even without an objection."],
+["Between merchants, the seller's acceptance adds a disclaimer of all warranties. The buyer never notices. Does it get in automatically?","No, it materially alters the deal","Yes, the buyer didn't object","Yes, sellers can always disclaim","No, it's a rejection","Big change?","Taking away warranties is a material alteration."],
+["The buyer's order says 'Acceptance is limited to these terms.' The seller's acceptance adds 'Invoices due in 30 days.' Does that term get in?","No, the offer limited acceptance to its terms","Yes, it's minor and no one objected","Yes, it was added in good faith","No, it materially alters the deal","What did the offer say?","If the offer limits acceptance to its own terms, added terms stay out."],
+["A seller's acceptance adds a minor term. Two days later the merchant buyer objects in writing. Is it part of the contract?","No, the buyer objected within a reasonable time","Yes, it's minor","Yes, the buyer already accepted the goods","No, it's material","Which blocker applies?","A timely objection keeps even a minor term out."],
+["A homeowner offers a painter $2,000. He replies, 'I accept, but you supply the ladders.' Is this an acceptance?","No, under common law it's a counteroffer","Yes, and the term becomes part of the deal","Yes, because the UCC dropped the mirror image rule","Yes, but the term is ignored","Goods or services?","Services follow common law and its mirror image rule."],
+["Two businesses clearly intend a deal for 200 chairs but never set a price. The chairs arrive. What price applies under the UCC?","A reasonable price at the time of delivery","No contract, since price is essential","The seller's list price","The price from their last deal","Gap filler.","The UCC fills a missing price with a reasonable price at delivery."],
+["What's the difference between 'good faith' and 'unconscionability' under the UCC?","Good faith is honest conduct; unconscionability is unfair terms","Good faith is unfair terms; unconscionability is honest conduct","They mean the same thing","One applies only to consumers, the other only to merchants","Behavior vs. the terms themselves.","Good faith = honesty and fair dealing in performing. Unconscionability = terms oppressively unfair when made."],
+["A hidden clause lets a seller repossess everything a buyer ever bought if one payment is late. The buyer had no real choice. Which concept fits?","Unconscionability","Breach of good faith","Mutual mistake","Fraud in the execution","Unfair terms at signing.","Oppressively one-sided terms at formation are unconscionable."],
+["Can parties to a UCC contract agree to waive the duty of good faith?","No, but they can set reasonable standards for it","Yes, if both are merchants","Yes, if it's conspicuous","No, and they can't set any standards either","Can't disclaim it.","Good faith can't be disclaimed, though reasonable standards for measuring it can be set."],
+["How does the UCC define a merchant?","Someone who deals in those goods or holds out expertise in them","Anyone who sells goods for profit","Only businesses registered with the state","Only manufacturers and wholesalers","Deals in, holds out, or uses an agent.","A merchant deals in that kind of goods, claims expertise in them, or uses an agent who does."],
+["A dentist sells an old office chair. Is she a merchant of chairs?","No, she doesn't deal in that kind of goods","Yes, she's a professional","Yes, anyone selling for profit is","No, used goods aren't covered","Does she deal in chairs?","A merchant deals in goods of that kind."],
+["A university buys lab equipment through its professional purchasing office. Can it be treated as a merchant?","Yes, because it uses an expert purchasing agent","No, it doesn't deal in lab equipment","No, only sellers can be merchants","Yes, all large organizations are","Three ways to be a merchant.","Using an agent with expertise can make you a merchant for that deal."],
+["Experienced farmers have sold soybeans for 14 years and follow market prices. Can they be merchants?","Possibly yes, because they regularly sell crops and know the market","No, farmers only grow crops","No, only commodity dealers count","Yes, anyone who sells anything is","Goldkist v. Brownlee.","The majority held experienced farmers can be merchants."],
+["Which transaction is covered by UCC Article 2?","A store selling a washing machine","A homeowner selling her house","A company hiring a consultant","A family buying life insurance","Movable things.","Article 2 covers sales of goods, not real estate, services, or insurance."],
+["A buyer contracts to cut and haul away timber from a landowner's forest. Which law governs?","The UCC, because timber the buyer cuts counts as goods","Real property law, because trees are attached","Common law, because cutting is a service","Real property law, because the buyer cuts it","Crops, timber, or building?","Buyer + crops or timber = goods."],
+["A buyer agrees to harvest a farmer's growing wheat. Which law governs?","The UCC, because harvested crops count as goods","Real property law, because crops are part of the land","Common law, because harvesting is a service","Real property law, because the buyer harvests","Crops.","Crops the buyer harvests without harming the land are goods."],
+["A company contracts to drill and remove oil from beneath a landowner's property. Which law governs?","Real property law, because extracting oil harms the land","The UCC, because oil is movable once extracted","The UCC, because natural resources are goods","Common law, because drilling is a service","Buyer removing minerals.","Buyer + minerals, oil, or buildings = real property law."],
+["A buyer contracts to dismantle and haul away a barn on a farmer's land. Which law governs?","Real property law, because the buyer is removing a structure","The UCC, because the barn becomes movable","The UCC, because barns are made of lumber","Common law, because dismantling is a service","Buyer + building = ?","Removing a structure materially affects the land."],
+["A farmer agrees to tear down his own barn himself and sell the lumber. Which law governs?","The UCC, because the seller is doing the removing","Real property law, because it's a structure","Real property law, because removal harms the land","Common law, because demolition is a service","Who removes it?","When the seller removes it, it's goods, whatever it is."],
+["What is a consumer lease under the UCC?","A lease to an individual for personal use, under $25,000","Any lease where a bank buys goods to lease them","A lease to a business for any amount","A residential real estate lease","Personal use, under $25,000.","Consumer lease: an individual, mainly personal/family/household use, total payments under $25,000."],
+["A bank buys an excavator from a dealer and leases it to a construction company. What kind of lease?","Finance lease","Consumer lease","Sale of goods","Secured transaction","The lessor is really the financer.","In a finance lease, the lessor buys goods from a supplier just to lease them."],
+["A gas station's finance-leased ATM loses its service company to bankruptcy. Does the station still owe payments?","Generally yes, finance leases are noncancelable","No, the supplier's failure cancels it","No, the lessor must service it","Only if it's a consumer lease","Hell or high water.","Info Leasing v. GDR: finance leases are usually noncancelable, subject to defenses like unconscionability."],
+["In which area are the UCC and common law basically the same?","Defenses like duress, misrepresentation, and mistake","The mirror image rule","Whether modifications need consideration","Whether offers can be held open without payment","What didn't change?","Reality-of-consent defenses work the same under both."],
+["When a contract is for both goods and services, how does a court decide which law applies?","Whichever the contract is mainly about governs the whole thing","The UCC applies if any goods are involved","Common law applies if any labor is involved","Each law covers its own part","Predominant factor.","Courts use the predominant factor test."],
+["A homeowner buys a water heater with installation included. It explodes. Which law governs?","The UCC, because the heater is the main purpose","Common law, because of the installation labor","Both, split between heater and labor","Common law, because installation makes it a service","What is the deal mainly about?","The heater predominates, so the UCC governs the whole contract."],
+["A family hires a tutor for weekly lessons; the price includes a few workbooks. Which law governs?","Common law, because the tutoring is the main purpose","The UCC, because workbooks are goods","Both, split up","The UCC, because the books are delivered","Mainly goods or services?","The service predominates, so common law applies."],
+["In Pittsley v. Houser, a homeowner complained about poorly installed carpet. Which law did the court apply?","The UCC, because buying the carpet was the main purpose","Common law, because the problem was installation","Both, split between carpet and labor","Common law, because installation was billed separately","Predominant factor.","The carpet predominated, so the UCC governed."],
+["In Princess Cruises v. GE, GE inspected and repaired a ship's turbine. What law did the appeals court apply?","Common law, because the contract was mainly services","The UCC, because turbine parts are goods","The UCC, because GE is a merchant","Both, split between parts and labor","Same test as Pittsley, opposite result.","The deal was mainly services, so common law applied."],
+["Which of these is a 'good' under the UCC?","A pizza served at a restaurant","A blood transfusion at a hospital","An hour of legal advice","A vacant lot","Restaurant food.","Restaurant food is treated as goods. Most states treat blood transfusions as a service."],
+["A patient gets sick from a blood transfusion and sues for breach of a UCC warranty. Likely to succeed?","Generally no, most states treat it as a service","Yes, blood is a movable good","Yes, under the predominant factor test","No, hospitals can't be sued","Goods or service?","Over 40 states treat blood transfusions as a service, not a sale of goods."],
+["A traveler buys 1,000 euros from a currency dealer. Can the euros be goods?","Yes, because the currency itself is what's being bought","No, money is never goods","No, currency exchanges are services","Only if over $500","Money as the object.","Money is usually not a good, but it can be when the money itself is the thing bought."],
+["A bride orders a custom dress made to her measurements. Which law governs?","The UCC, because specially made goods are still goods","Common law, because sewing is a service","Common law, because custom items aren't goods","Both, split between fabric and labor","Does custom-made change it?","Specially manufactured goods are still goods."],
+["A lumber dealer sends a signed letter: 'We'll hold this price for 30 days.' The buyer pays nothing. On day 10, can the dealer revoke?","No, a merchant's signed firm offer is irrevocable","Yes, no consideration was given","Yes, any offer can be revoked before acceptance","No, but only because the buyer relied on it","Merchant, signed, in writing.","A merchant's signed written firm offer is irrevocable without consideration."],
+["A private person selling his only boat signs a note promising to hold the price 30 days. On day 10, can he revoke?","Yes, only merchants can make firm offers","No, it was signed and written","No, all written offers are firm","Yes, boats aren't goods","Who can make a firm offer?","The firm offer rule applies only to merchants."],
+["A merchant signs a letter holding an offer open for six months, with no payment. How long is it irrevocable?","Up to three months","The full six months","Only 30 days","Not at all","There's a cap.","A firm offer lasts the stated time, but no more than three months."],
+["A steel supplier asks for a higher price because its costs truly rose; the buyer agrees in good faith. Is the change enforceable without new consideration?","Yes, good-faith UCC modifications need no consideration","No, the buyer got nothing new","No, all changes must be written","Only if there was a firm offer","UCC vs. common law.","Under the UCC, good-faith modifications need no consideration."],
+["On your professor's UCC slides, Leonard Pevar v. Evans Products appears with which idea?","UCC formation is flexible; open terms don't sink the deal","Finance leases are noncancelable","Firm offers last up to three months","Blood transfusions are services","It's on the open terms slide.","Leonard Pevar sits on the open terms and gap fillers slide."],
+["On your professor's UCC slides, Ambassador Steel v. Ewald Steel appears with which topic?","Warranties on the goods sold","Battle of the forms","Who counts as a merchant","Finance leases","It follows the warranty table.","Ambassador Steel is the chapter's warranty case."]
+]},
+9: { name: "Real Property", q: [
+["A ranch owner sold the gas rights under her land, then later sold the surface to a new owner. Gas is found. Who owns it?","The buyer of the gas rights, because mineral rights can be sold separately","The new surface owner, because surface owners own what's below","The state, because gas is public","Whoever drills first","Were the rights split off?","Surface owners own what's below unless those rights were severed and sold."],
+["A woman owns a ranch, and oil is discovered beneath it. Who generally owns the oil?","She does, and she can sell the mineral rights separately","The state","Whoever drills first","She owns only the surface","Default rule.","The surface owner owns the minerals below and can sever them."],
+["Why have many states passed laws requiring neighbors to share oil and gas?","To prevent wasteful races to drill and capture flowing oil","Because the federal government owns it","Because surface owners never own it","To raise taxes on oil companies","Oil moves underground.","Oil and gas flow, so neighbors could drain each other. Sharing laws prevent drilling races."],
+["Under the natural flow doctrine, an upstream owner wants to divert much of a river to irrigate crops, sharply reducing the flow. Allowed?","No, it materially changes the river's natural flow","Yes, he's upstream","Yes, if the benefit outweighs the harm","Yes, he used it first","Natural flow = keep it natural.","Each owner is entitled to the river in its natural state."],
+["Under the strict natural flow doctrine, which use by an upstream owner is allowed?","Using some water for drinking and washing","Diverting half the stream to run a mill","Damming it for a private pond","Piping it away for large fields","Small domestic uses.","Domestic uses are fine; changing the flow isn't."],
+["How does the reasonable use doctrine (most eastern states) decide water disputes?","It weighs the benefit of the use against the harm","First user has priority","The river must stay exactly natural","Upstream owners take what they want","Eastern states today.","Reasonable use balances benefit against harm."],
+["On your professor's slides, Erickson v. Queen Valley Ranch appears with which doctrine?","Prior appropriation: first in time, first in right","Natural flow","Reasonable use","Riparian ownership","Western states.","Erickson sits on the prior appropriation slide."],
+["What is the key difference between an easement and a license?","An easement is an interest in land; a license is revocable permission","A license is an interest in land; an easement is revocable","Both end when the owner sells","Both are permanent","Interest vs. permission.","A license is personal, revocable, and not assignable."],
+["A homeowner told her neighbor 10 years ago, 'Feel free to park in my extra spot.' Now she wants him to stop. Can she?","Yes, a license is revocable at the owner's will","No, 10 years turned it into an easement","No, unless she pays him","Only after a year's notice","Casual permission.","A license can be revoked anytime."],
+["A landowner says a neighbor can hunt on her land this season. He tries to pass that right to his cousin. Can he?","No, a license is personal and can't be assigned","Yes, permission can be transferred","Yes, if the cousin lives nearby","Only with a transfer fee","License or easement?","Licenses are personal to the person who got them."],
+["Lot A has a recorded easement for a driveway across Lot B. Lot A is sold. Can the new owner use the driveway?","Yes, an easement appurtenant runs with the land","No, easements are personal","No, unless Lot B signs again","Only for the seller's lifetime","Person or land?","Appurtenant easements belong to the land and pass with it."],
+["A lake house has a deeded path across a neighbor's lot to the dock. Which statement is correct?","The lake house is the dominant tenement, so the easement goes with it","The neighbor's lot is dominant, so it ends","It ends because it was personal","The buyer must negotiate a new one","Dominant = benefits.","The benefited land is dominant; the burdened land is servient."],
+["A woman who owns no nearby land buys a right to snowmobile across a friend's farm. She tries to sell that right. Can she?","No, a noncommercial easement in gross is personal","Yes, all easements run with the land","Yes, easements can always be sold","No, because she never owned land","In gross, personal or commercial?","Noncommercial easements in gross can't be transferred."],
+["A neighbor signs a recorded promise never to build anything blocking a homeowner's ocean view. What is this?","A negative easement","An affirmative easement","A license","An easement in gross","Negative = 'you can't.'","A negative easement stops the servient owner from doing something."],
+["A farmer has a recorded right to draw water from his neighbor's well. What is this?","An affirmative easement","A negative easement","A restrictive covenant","A tenancy at will","Doing something on their land.","An affirmative easement lets you use someone else's land."],
+["A man owns two lots. The back lot reaches the street only by a driveway across the front lot, which he's always used. He sells the back lot. Can the buyer use the driveway?","Likely yes, an implied easement from prior use","No, easements must be in the deed","No, it's only a license","Only after 20 years","Common ownership?","Prior common ownership plus apparent, continuous, necessary use."],
+["Two neighbors have always owned their lots separately. One has used a path across the other's lot for years without agreement. Implied easement from prior use?","No, the lots were never under common ownership","Yes, the use was apparent and continuous","Yes, the path is necessary","No, implied easements don't exist","What's the first requirement?","Implied easements from prior use require common ownership."],
+["What is required for an easement to be implied from prior use?","Common ownership, plus apparent, continuous, necessary use","A signed, recorded deed","20 years of hostile use","Verbal permission","Four parts.","Same owner once, and a use that was apparent, continuous, and reasonably necessary."],
+["A neighbor blasts music until 3 a.m. every night. Which tort?","Nuisance","Trespass","Both","Neither","Physical invasion?","Noise isn't physical, so it's nuisance."],
+["A homeowner's pesticide spray drifts onto his neighbor's garden. What can the neighbor claim?","Trespass, because the spray physically entered her land","Nuisance only, because it was unintentional","Neither, he sprayed his own land","Trespass only if he walked over","Something physical crossed.","Physical substances entering the land are trespass."],
+["A pig farm's odor drifts over nearby homes daily. Which tort fits best?","Nuisance","Trespass","Both, odors are physical","Neither","Did anything physical cross?","Smells interfere with enjoyment but aren't a physical invasion."],
+["Which of these is a physical invasion that could be trespass?","A neighbor's second-story addition hanging over the line","Loud party music","Bright dealership lights","Restaurant cooking smells","Which one physically enters?","An encroaching structure is a physical invasion."],
+["A farmer knows hikers regularly cut across his field. He digs a deep, hard-to-see trench there. What duty does he owe them?","Reasonable care, including warning of known hidden dangers","No duty, they're trespassers","The duty owed to customers","Only not to set traps","Known trespassers.","Owners must warn known trespassers of hidden dangers they know about."],
+["An adult sneaks onto a property for the first time at night. The owner has no idea anyone crosses. The trespasser falls in a hole. Is the owner likely liable?","No, he owed no duty to an unknown trespasser","Yes, owners must warn everyone","Yes, the hole was hidden","No, but only because it was night","Known or unknown?","No duty is owed to unknown trespassers."],
+["A friend at a barbecue is hurt by a rotted deck board the host didn't know about. Her status and the host's duty?","Licensee, owed a warning only of dangers the host knew about","Invitee, owed protection from dangers he should have found","Trespasser, owed nothing","Invitee, because she was invited","Social or business?","Social guests are licensees, even when invited."],
+["A grocery shopper slips on a spill that sat for two hours. No employee noticed. Can the store be liable?","Yes, she's an invitee and the store should have known","No, the store didn't actually know","No, customers are licensees","Only if an employee spilled it","Business reason.","Invitees are protected from dangers the owner knew or should have known about."],
+["A shopper is in a hardware store. Separately, a friend is at the owner's house for dinner. How are they classified?","Customer is an invitee; friend is a licensee","Both invitees","Both licensees, since neither paid","Customer is a licensee; friend an invitee","Business reason vs. social visit.","Invitee = business purpose, not paying admission."],
+["Same host, but this time he knew the deck railing was rotted and said nothing. A guest leans on it and falls. Liable?","Yes, he knew of a hidden danger and didn't warn","No, social guests are owed nothing","No, only invitees recover","Only if she paid","What did he know?","Licensees must be warned of known hidden dangers."],
+["What's the difference between a general warranty deed and a quitclaim deed?","A warranty deed promises good title; a quitclaim promises nothing","A quitclaim promises good title","They're the same","A warranty deed is for gifts only","Promises or no promises.","Quitclaim deeds transfer whatever the seller has, with no warranties."],
+["A buyer accepts a quitclaim deed. A stranger later proves he owns part of the land. Can the buyer sue the seller for breach of warranty?","No, a quitclaim makes no promises about title","Yes, every deed promises good title","Only for defects the seller knew","No, quitclaims only apply to condos","What did the deed promise?","A quitclaim gives the buyer no warranty claim."],
+["A contract describes the property as '412 Oak Street, Arlington, Texas.' Is that detailed enough?","Usually yes, a court can identify the property from it","No, a survey is always needed","No, it needs metes and bounds","Only for condos","Professor's slide.","The description must let a court identify the property without outside evidence."],
+["A contract describes the property only as 'that nice lot near the lake.' Adequate?","No, a court can't identify the property from it","Yes, both knew which lot","Yes, if the buyer visited","No, every description needs a survey","Identify without outside evidence?","Too vague for a court to identify the property."],
+["An agent tells homeowners to sell fast because 'certain people' are moving in. What's this prohibited practice?","Blockbusting","Redlining","Steering","Adverse possession","Panic selling.","Blockbusting is barred by the Fair Housing Act."],
+["A large complex charges families with children double the security deposit. Fair Housing violation?","Yes, it discriminates in terms based on family status","No, landlords set deposits","No, children aren't protected","Only if owner-occupied","Protected class?","Family status is protected; discriminatory terms are barred."],
+["A landlord tells a woman wearing a religious head covering nothing is available, but tells the next applicant there are several units. Violation?","Yes, falsely denying availability is prohibited","No, landlords choose tenants","No, religion isn't protected","Only with discriminatory ads","Prohibited actions.","Falsely saying housing isn't available because of a protected trait is barred."],
+["Which is most likely exempt from the 1968 Fair Housing Act (for discrimination not based on race)?","An owner renting a unit in the fourplex she lives in, with no ads","A corporation with a 100-unit complex","A broker listing many homes","A bank making home loans","Owner lives there, fewer than five families.","Owner-occupied buildings with fewer than five units, no discriminatory ads, are exempt."],
+["Which seller is most likely exempt from the 1968 Act (not race-based)?","An owner of two houses selling one himself, no broker or ads","A developer selling 200 homes","A broker selling a client's home","A bank setting loan terms","Single-family exemption.","Owners of fewer than four houses selling without a broker or discriminatory ads are exempt."],
+["An owner in her own fourplex refuses to rent to someone because of his race. Is she protected by the owner-occupied exemption?","No, race discrimination is barred by the 1866 Act","Yes, owner-occupied fourplexes are exempt","Yes, she used no broker","Only if she ran ads","Jones v. Alfred H. Mayer.","The Civil Rights Act of 1866 bars all race discrimination in housing, with no exemptions."],
+["Why is recording a deed important?","It gives constructive notice and protects against later buyers","It makes the sale valid in the first place","It lowers property taxes","It replaces the deed","Notice to the world.","Recording puts the world on notice of your ownership."],
+["Notice statute: a seller deeds land to Dana May 1, then to Chris May 2. Chris doesn't know about Dana. Dana records May 3; Chris May 5. Who wins?","Chris, because Dana hadn't recorded when he bought","Dana, because she bought first","Dana, because she recorded first","Neither","On the day the second buyer bought…","Notice statute: the later buyer wins if the earlier deed wasn't recorded when he bought and he didn't know."],
+["Notice-race: a seller deeds to Ana June 1, then to Ben June 2. Ben doesn't know. Ben records June 3; Ana June 10. Who wins?","Ben, because he lacked notice and recorded first","Ana, because she bought first","Ana, because the seller deeded to her first","Neither","No notice AND first to record.","Notice-race requires both."],
+["Race statute: Buyer 2 knows about Buyer 1's purchase but rushes to record first. Who wins?","Buyer 2, because she recorded first","Buyer 1, because Buyer 2 knew","Buyer 1, because she bought first","Neither","Only the recording date counts.","Under a pure race statute, whoever records first wins."],
+["A condo owner wants to sell her unit but keep her share of the pool and hallways. Can she?","No, the unit can't be sold apart from the common elements","Yes, each part is separately owned","Yes, if the board approves","No, condos can only be leased","Professor's checklist.","A condo unit and its share of the common areas go together."],
+["Two sisters own a lake house as joint tenants. One leaves her share to her nephew in her will, then dies. Who gets it?","Her sister, through the right of survivorship","Her nephew, because the will controls","Split between them","The state","Last one standing.","Survivorship takes effect at death, so nothing is left for the will."],
+["Three friends own property as tenants in common. One dies. Who gets his share?","His heirs, because there's no survivorship","The surviving friends","The state","It must be sold","Tenancy in common.","A tenant in common's share passes to heirs."],
+["Two friends own land as joint tenants. One sells her share to a stranger. How do they now hold it?","As tenants in common","Still as joint tenants","As tenants by the entirety","The sale is void","A unity is broken.","Selling breaks the unities, so the joint tenancy becomes a tenancy in common."],
+["Who can hold property as tenants by the entirety?","Only married couples","Any two people who live together","Any family members","Any business partners","Unity of person.","Tenancy by the entirety is only for married couples."],
+["A married couple holds their home as tenants by the entirety. The husband wants to sell his interest to his brother without telling his wife. Can he?","No, neither spouse can sell without the other","Yes, he owns half","Yes, if it's in his name","No, married couples can't sell homes","One unit.","Neither spouse alone can sell or lease."],
+["A parent deeds land to three children without clearly stating survivorship. Like James v. Taylor, how would a court likely treat their ownership?","Tenants in common, because survivorship wasn't clear","Joint tenants, because they got it in one deed","Joint tenants, because they're family","Tenants by the entirety","Professor's 'For the Exam' point.","James v. Taylor turned on joint tenancy vs. tenancy in common. Courts need clear survivorship language."],
+["A city takes homes and gives the land to a private developer for a business park that will raise tax revenue. Can it?","Yes, with a legitimate public purpose and just compensation","No, taken land can't go to private parties","No, public use means only roads and parks","Yes, with no compensation","Kelo v. New London.","Economic development can satisfy public use."],
+["A state takes land from a few huge estates and resells it to homeowners to break up concentrated ownership. Can it?","Yes, with a legitimate public purpose and just compensation","No, it can't go to private owners","No, only roads qualify","Yes, with no compensation","Hawaii v. Midkiff.","Breaking up land concentration is a legitimate public purpose."],
+["An easement allows 'electric transmission or telephone lines.' A cable TV company wants to use it. Can it?","No, an easement is limited to its stated purpose","Yes, all wires are the same","Yes, easements grow with technology","No, cable companies can't hold easements","Marcus Cable v. Krohn.","An easement covers only what it says."],
+["An easement lets a farmer drive 'farm equipment' over a road. He starts sending dozens of commercial dump trucks daily. Allowed?","No, the easement is limited to its stated purpose","Yes, they're all vehicles","Yes, easements expand with business","No, trucks can't use easements","Marcus Cable.","Use can't go beyond the easement's stated purpose."]
+]},
+10: { name: "Landlord & Tenant", q: [
+["What is an estate for years?","A tenancy with a definite beginning and end","A tenancy that renews each period","A tenancy that lasts as long as both want","A tenant staying after the lease ends","Concert ticket.","Any length, as long as it has a definite start and end. It ends automatically."],
+["A student rents a beach condo from June 1 to August 31. What kind of tenancy?","An estate for years","A periodic tenancy","A tenancy at will","A tenancy at sufferance","Definite start and end?","Even a short fixed term is an estate for years."],
+["A one-year lease runs January 1 to December 31. Does anyone need to give notice to end it?","No, it ends automatically at the end of the term","Yes, one month's notice","Yes, six months' notice","No, because it renews","Fixed end date.","An estate for years ends on its own."],
+["A tenant rents month to month, renewing until someone gives notice. What kind of tenancy?","A periodic tenancy","An estate for years","A tenancy at will","A tenancy at sufferance","Subscription.","Renews automatically each period until notice."],
+["A month-to-month tenant wants to move out. What generally has to happen?","She gives notice equal to one rental period","She can leave the same day","She must stay a full year","She must give six months' notice","Periodic tenancy.","Ending a periodic tenancy takes proper notice, usually one period."],
+["A lease lets a tenant stay 'until she passes away.' Under Kajo Church Square v. Walker, what is this?","A tenancy at will","A tenancy for life","An estate for years","A periodic tenancy","Professor's 'For the Exam' point.","A lease ending at the tenant's death is a tenancy at will, not a recognized tenancy for life."],
+["A friend lets you stay in her spare room with no end date, as long as you both want. What kind of tenancy?","A tenancy at will","A periodic tenancy","An estate for years","A tenancy at sufferance","As long as both want.","Either side can end a tenancy at will."],
+["A tenant's lease ended, but he stays without the landlord's agreement. What is he, and what can the landlord do?","A tenant at sufferance; the landlord can evict or treat him as a new tenant","A periodic tenant who renews automatically","A tenant at will who stays as long as he wants","A tenant for years with another full year","Stayed after the party ended.","A holdover is a tenant at sufferance."],
+["A landlord and business orally agree to a three-year shop lease. Enforceable in most states?","No, a lease over one year must be in writing","Yes, oral leases are always fine","Yes, the tenant moved in","No, all leases must be notarized","Statute of Frauds.","Multi-year leases need a writing."],
+["Under the Statute of Frauds, which does a written multi-year lease NOT have to include?","The security deposit amount","Who the parties are","How long it lasts","How much rent is owed","Parties, premises, duration, rent, signature.","The deposit isn't one of the required items."],
+["A two-year lease is signed by the landlord but not the tenant. The landlord refuses to let the tenant move in. Can the tenant enforce it?","Yes, the landlord is the one being held to it","No, both must sign","No, the tenant must sign first","Only if notarized","Signed by the party to be charged.","The writing must be signed by the person it's enforced against."],
+["On move-in day, a third party with superior title legally bars the tenant from occupying. Result?","The landlord is in default","The tenant is in default","The lease stays valid, so she waits","She pays rent to the third party","Paramount title.","A paramount title breach puts the landlord in default."],
+["What does the implied warranty of habitability require in a residential lease?","The unit is safe, clean, and fit to live in","The tenant returns it in perfect shape","Rent never goes up","Neighbors never make noise","Professor's slide.","Landlords guarantee residential premises are fit for human habitation."],
+["According to your professor's slide, the implied warranty of habitability applies to which lease?","An apartment leased to a family","A warehouse leased to a shipper","A storefront leased to a retailer","An office leased to a law firm","Residential.","It applies in residential leases."],
+["A tenant agreed to pay $1,500 a month. Bedbugs the landlord won't treat make it worth $900. Under Adams v. Woodlands of Nashua, what can she recover?","$600 a month","$900 a month","$1,500 a month","$2,400 a month","Agreed rent minus value as-is.","Adams: agreed rent minus fair rental value in the unfit condition."],
+["A tenant agreed to $1,000 a month. No heat all winter makes it worth $600. Under Adams, what can she recover?","$400 a month","$1,000 a month","$600 a month","$1,600 a month","Agreed rent minus value as-is.","$1,000 − $600 = $400."],
+["A shop's basement floods weekly from a drain the landlord won't fix. The tenant moves out and stops paying. Constructive eviction?","Yes, the landlord's inaction made it unusable and he left","No, the landlord didn't lock him out","No, he must stay and pay","Only if the flooding was intentional","Can failing to act count?","Constructive eviction: landlord's conduct or inaction makes the place unusable and the tenant leaves."],
+["Protesters keep blocking a doctor's office; the landlord ignores complaints despite promising security. The doctor moves out. Constructive eviction?","Yes, the landlord's failure to act can be constructive eviction","No, the landlord didn't cause the protests","No, it requires changing the locks","Only if the landlord encouraged them","Fidelity Mutual v. Kaminsky.","Inaction counts."],
+["A tenant complains about extreme construction noise the landlord ignores. She keeps living there but stops paying, claiming constructive eviction. Does it work?","No, because she never moved out","Yes, the noise interfered with her use","Yes, any complaint ends the rent duty","No, noise can't support it","What must the tenant do?","Constructive eviction requires actually leaving."],
+["A lease requires the tenant to pay property taxes on top of rent. She skips a tax payment. Can it count as unpaid rent?","Yes, if the lease makes taxes part of what she pays","No, rent is only the monthly payment","No, only owners pay taxes","Only in residential leases","What does the lease say?","Rent can include taxes when the lease says so."],
+["A tenant with two years left transfers the entire remaining two years to a friend. Never released. What is this, and is she still liable?","An assignment, and she's still liable","A sublease, and she's released","A sublease, and she's still liable","An assignment, and she's released","Entire remaining term.","Assignment = whole remaining lease. The original tenant stays liable unless released."],
+["A tenant rents her apartment to someone else for just the summer. What is it, and what does the summer tenant owe the landlord?","A sublease; the subtenant has no direct obligation to the landlord","A sublease; the subtenant owes the landlord directly","An assignment; the subtenant owes the landlord directly","An assignment; the lease is canceled","Professor's red arrow.","Sublease = less than the whole. No direct landlord obligations."],
+["A tenant sublets for three months, and the subtenant stops paying. Who can the landlord go after?","The original tenant","Only the subtenant","Neither, the sublease canceled the lease","Both equally","No direct landlord obligations.","The subtenant owes the landlord nothing directly, so the original tenant is on the hook."],
+["A landlord sells a duplex. The new owner wants the tenants out, but their lease runs 10 more months. Can he evict them just for buying it?","No, the buyer takes subject to existing leases","Yes, a sale cancels leases","Yes, with 30 days' notice","Only if he pays them","What happens on a sale?","Existing leases survive the sale."],
+["As a general rule, who is liable when a guest slips on a spill inside a tenant's apartment?","The tenant, because she controls the premises","The landlord, because he owns the building","Both equally","No one","Who controls the inside?","The tenant, as the one in control, is generally liable."],
+["A hallway light in an apartment building has been out for a month despite complaints. A tenant trips on the dark stairs. Who's likely liable?","The landlord, because he controls the common areas","The nearest tenant","No one","All tenants equally","Who controls the hallway?","Landlords are responsible for hallways and stairs they control."],
+["A landlord knows of a rotted floor hidden under the carpet and doesn't tell the new tenant. She falls through. Is he liable?","Yes, he hid a known danger","No, the tenant controls the unit","No, she should have inspected","Only if he promised repairs","Hidden known danger.","Landlords are liable for hidden dangers they know about and don't disclose."],
+["A tenant agreed to handle repairs. A balcony already rotting when she signed collapses onto a pedestrian below. Who can be held responsible?","The landlord, because the defect existed at signing","Only the tenant, because she agreed to repairs","No one, it was a public sidewalk","Only the pedestrian","Watch for 'only.'","Landlords are liable to people off the premises for defects existing at signing."],
+["A landlord leases a building as a movie theater. A dangerous step existed at signing. A patron trips. Can the landlord be liable?","Yes, it was leased for public use with an existing danger","No, the tenant runs the theater","No, patrons should look","Only if he owns the theater too","Public use.","Landlords are liable for existing dangers on property leased for public use."],
+["A landlord with no repair duty volunteers to fix a balcony railing and does it sloppily. It gives way. Liable?","Yes, careless repairs create liability","No, he didn't have to fix it","No, the tenant controls the balcony","Only if he charged","Careless repair.","Volunteering a repair and doing it carelessly creates liability."],
+["Under Sargent v. Ross, what standard applies to landlords?","Reasonable care not to expose others to unreasonable risk, like ordinary persons","Strict liability for every injury","Liability only in common areas","No liability once the tenant moves in","Professor's 'For the Exam' slide.","Sargent replaced narrow exceptions with a general duty of reasonable care."],
+["What did Sargent v. Ross do to the old landlord liability rules?","Replaced narrow exceptions with a general reasonable care duty","Made landlords strictly liable","Said landlords are never liable","Limited liability to common areas","Old rule vs. new rule.","The old rule was generally no liability with exceptions; Sargent adopted reasonable care."]
+]}
+};
+
+const CASES = [
+["Products Liability",true,"MacPherson v. Buick","A car's wooden wheel collapses. The owner bought from a dealer, not Buick. What did MacPherson v. Buick hold?","The maker owed the user a duty of care without privity","Ads promising safety created an express warranty","The maker was strictly liable without fault","Only the dealer was responsible","M for made carelessly.","MacPherson is the negligence case that removed the privity barrier."],
+["Products Liability",true,"MacPherson v. Buick","Which legal theory is MacPherson v. Buick known for?","Negligence","Express warranty","Strict liability","Implied warranty of title","Made carelessly.","MacPherson: negligence, no privity needed."],
+["Products Liability",true,"Baxter v. Ford","Ford advertised 'shatterproof' windshields. A pebble shattered one, injuring a driver who bought from a dealer. What did Baxter v. Ford hold?","The advertising created an express warranty Ford had to honor","Strict liability applies to all car parts","Negligence requires a design defect","Buyers can only sue the dealer","B for billboard.","Baxter: ads can create an express warranty, even without buying directly."],
+["Products Liability",true,"Baxter v. Ford","Which legal theory is Baxter v. Ford known for?","Express warranty","Negligence","Strict liability","Federal preemption","Billboard.","Baxter: express warranty from advertising."],
+["Products Liability",true,"Greenman v. Yuba","A Shopsmith power tool threw wood into the user's head because of weak set screws. What is Greenman v. Yuba known for?","Strict liability in tort for makers of defective products","Removing privity in negligence","Ads as express warranties","Barring purely economic losses","G for garage tool.","Greenman is the foundation of Section 402A."],
+["Products Liability",true,"Greenman v. Yuba","Which case let a plaintiff win without clearing warranty hurdles like giving timely notice?","Greenman v. Yuba","Baxter v. Ford","MacPherson v. Buick","Atlas Air v. GE","Strict liability.","Greenman moved products liability into strict liability in tort."],
+["Products Liability",false,"Eastman v. Stanley Works","A carpenter used a framing hammer on masonry nails and the claw broke off. What did Eastman v. Stanley Works say about misuse?","Unreasonable but foreseeable misuse isn't a defense","Any misuse bars recovery","Hand tools aren't covered","He assumed the risk as a matter of law","Could the maker expect it?","Misuse is a defense only if unforeseeable."],
+["Products Liability",false,"Atlas Air v. GE","A cargo plane's engine failed; only the plane was damaged and no one was hurt. What did Atlas Air v. General Electric hold?","Purely economic losses can't be recovered in tort","Strict liability covers all damage","Airplanes are excluded from the UCC","Buying used waives all claims","Anyone hurt?","The economic loss rule sends those claims to warranty law."],
+["Contracts",true,"Lucy v. Zehmer","Over drinks, Zehmer signed a note on a restaurant check selling his farm to Lucy, then said it was a joke. What did the court decide?","The deal was enforced under the objective standard","No contract, because he secretly joked","No contract, a check isn't a writing","Void, because both had been drinking","What would a reasonable person think?","Secret intent doesn't matter; it looked serious."],
+["Contracts",true,"Kolodziej v. Mason","On TV, a lawyer dramatically offered $1 million to anyone who could prove a timeline possible. Someone did. What did Kolodziej v. Mason hold?","No contract, no reasonable person would take it as a real offer","A dollar amount always makes it serious","Valid offer barred by the Statute of Frauds","The lawyer lacked capacity","Flip side of Lucy.","Context showed it wasn't a serious offer."],
+["Contracts",true,"Lucy v. Zehmer / Kolodziej v. Mason","What standard do Lucy v. Zehmer and Kolodziej v. Mason both apply to offers made in jest?","Whether a reasonable person would believe the offer was serious","Whether the speaker secretly meant it","Whether it was written down","Whether anyone laughed","Objective standard.","Both use the objective standard; they just reach opposite results."],
+["Contracts",true,"Hamer v. Sidway","An uncle promised his nephew $5,000 to not drink, smoke, or gamble until 21. He complied. What did Hamer v. Sidway hold?","Giving up a legal right at someone's request is consideration","No consideration, it only helped him","It was an unenforceable family gift","Only promissory estoppel could apply","Forbearance.","Forbearance is valid consideration."],
+["Contracts",true,"Blinn v. Beatrice Community Hospital","On your professor's slides, Blinn v. Beatrice Community Hospital is the case for which doctrine?","Promissory estoppel","The mailbox rule","Minors' capacity","Mutual mistake","After the consideration slide.","Blinn sits on the promissory estoppel slide."],
+["Contracts",true,"Blinn v. Beatrice Community Hospital","Using your professor's Blinn slide, which set of elements does promissory estoppel require?","A promise, reasonable reliance, and substantial economic detriment","Offer, acceptance, and consideration","Improper threat, no alternative, inducement","Writing, signature, and price","Promise, reliance, harm.","Those are the three elements on the slide."],
+["Contracts",false,"Sherwood v. Walker","Both sides thought a cow was barren and set a low price. She was pregnant and worth far more. What did the court allow?","Relief for mutual mistake about a basic assumption","Nothing, the seller set the price","Fraud damages against the buyer","Specific performance","Shared mistake.","A shared basic mistake that changes the deal allows rescission."],
+["Contracts",false,"Hadley v. Baxendale","A carrier delivered a mill's shaft late without knowing the mill would shut down. What rule came from Hadley v. Baxendale?","Consequential damages must be foreseeable when contracting","All losses from breach are recoverable","Carriers can't be sued for delay","Lost profits are punitive","Did the carrier know?","Only foreseeable consequential damages are recoverable."],
+["UCC",true,"Leonard Pevar v. Evans Products","On your professor's UCC slides, Leonard Pevar v. Evans Products is the case for which idea?","UCC formation is flexible; open terms don't sink a deal","Firm offers last up to three months","Finance leases are noncancelable","Blood transfusions are services","Open terms slide.","Leonard Pevar sits on the open terms and gap fillers slide."],
+["UCC",true,"Princess Cruises v. GE","GE agreed to inspect and repair a ship's turbine; the repair failed. What law did the court apply in Princess Cruises v. GE?","Common law, because the deal was mainly services","The UCC, because parts are goods","The UCC, because GE is a merchant","Both, split up","Same test as Pittsley, opposite result.","The predominant factor was services."],
+["UCC",true,"Princess Cruises v. GE","What test did Princess Cruises v. GE use to choose between the UCC and common law?","The predominant factor test","The objective standard","The natural-foreign test","The reasonable expectations test","Mainly goods or mainly services?","Courts look at what the contract is mainly about."],
+["UCC",true,"Ambassador Steel v. Ewald Steel","On your professor's UCC slides, Ambassador Steel v. Ewald Steel (steel that cracked when welded) appears with which topic?","Warranties on goods sold","Battle of the forms","Who counts as a merchant","Finance leases","After the warranty table.","It's the chapter's warranty case."],
+["UCC",false,"Pittsley v. Houser","A homeowner got carpet with installation included, and the installation was bad. Which law applied in Pittsley v. Houser?","The UCC, because the carpet was the main purpose","Common law, because of the labor","Both, split up","Common law, because labor was billed separately","Predominant factor.","The carpet predominated, so the UCC governed."],
+["UCC",false,"Goldkist v. Brownlee","Farmers backed out of a phone soybean deal after not objecting to a written confirmation. What was the key issue in Goldkist v. Brownlee?","Whether the farmers counted as merchants","Whether soybeans are goods","Whether the price was missing","Whether the farmers had capacity","Who does the confirmation rule bind?","The majority said experienced farmers can be merchants."],
+["UCC",false,"Info Leasing v. GDR","A gas station's ATM service company went bankrupt, and the owner stopped paying on his finance lease. Key rule from Info Leasing v. GDR?","Finance leases are generally noncancelable","The supplier's failure cancels the lease","Consumer law lets him walk away","The lessor must service the ATM","Hell or high water.","The court sent it back to consider defenses like unconscionability."],
+["UCC",false,"Sheeskin v. Giant Food","A soda bottle exploded as a shopper moved a six-pack toward his cart, before paying. What did Sheeskin v. Giant Food decide?","Moving it to his cart was acceptance, so a sale and warranty existed","No sale until the register","Only the bottler could be liable","Only negligence applied","Was there a sale?","A reasonable acceptance created a sale with the merchant's warranty."],
+["Real Property",true,"Erickson v. Queen Valley Ranch","On your professor's slides, Erickson v. Queen Valley Ranch appears with which water doctrine?","Prior appropriation, first in time is first in right","Natural flow","Reasonable use","Riparian ownership","Western states.","Erickson sits on the prior appropriation slide."],
+["Real Property",true,"Marcus Cable v. Krohn","An easement allowed 'electric or telephone lines.' A cable TV company wanted to use it. What did Marcus Cable v. Krohn hold?","An easement is limited to its stated purpose","All wires count as the same use","Easements grow with technology","Cable companies can't hold easements","Read the easement's words.","An easement covers only what it says."],
+["Real Property",true,"Marcus Cable v. Krohn","An easement for 'water pipes' runs under a lot. An internet company wants to lay fiber there. Applying Marcus Cable, can it?","No, the easement is limited to water pipes","Yes, both are underground","Yes, easements expand","No, internet companies can't hold easements","Stated purpose.","Same rule: use is limited to the stated purpose."],
+["Real Property",true,"James v. Taylor","Your professor's 'For the Exam' point on James v. Taylor: what was the primary issue?","Joint tenancy with survivorship vs. tenancy in common","Warranty vs. quitclaim deed","Whether an easement ran with the land","Whether the deed was recorded","How did the siblings own it?","Without clear survivorship language, courts treat co-owners as tenants in common."],
+["Real Property",true,"James v. Taylor","Why did it matter in James v. Taylor whether the siblings were joint tenants or tenants in common?","Joint tenancy passes to survivors; tenancy in common passes to heirs","No difference either way","Joint tenancy passes to heirs; tenancy in common to survivors","Only joint tenants can sell","Right of survivorship.","Survivorship is the key difference."],
+["Real Property",false,"Kelo v. New London","A city took homes and gave the land to private developers for economic development. What did Kelo v. New London hold?","Economic development can satisfy public use, with just compensation","Taken land can never go to private parties","No compensation is owed","Public use means only roads and schools","Public use.","Kelo: economic development counts as public use."],
+["Real Property",false,"Hawaii v. Midkiff","Hawaii took land from huge estates and resold it to homeowners. What did Hawaii v. Midkiff allow?","A taking for a legitimate public purpose, even resold privately","Only temporary leases","Taking without compensation","Taking only for military use","Same idea as Kelo.","Breaking up land concentration is a public purpose."],
+["Real Property",false,"U.S. v. Causby","Military planes flew so low over a chicken farm that chickens died. What did U.S. v. Causby establish?","Low, frequent flights that interfere with using land are actionable","Owners own all airspace with no limit","Planes can never fly over private land","Airspace belongs to the government","Airspace.","Planes may fly over, but not so low and often they interfere with using the land."],
+["Real Property",false,"Rowland v. Christian","What did the California Supreme Court do in Rowland v. Christian?","Dropped visitor categories for a general duty of reasonable care","Added a category for social guests","Made owners strictly liable","Removed duties to trespassers","Modern trend.","Rowland abolished trespasser/licensee/invitee categories."],
+["Real Property",false,"Jones v. Alfred H. Mayer","Why is race discrimination in housing always banned, even where the 1968 Act has an exemption?","Jones v. Alfred H. Mayer applied the Civil Rights Act of 1866","The Fair Housing Act's broker rule","State zoning laws","Rowland v. Christian","An older law.","The 1866 Act bars all race discrimination in property, no exemptions."],
+["Landlord & Tenant",true,"Sargent v. Ross","Your professor's 'For the Exam' point on Sargent v. Ross: what duty do landlords owe?","Reasonable care not to expose others to unreasonable risk, like ordinary persons","No duty once the tenant moves in","Strict liability for any injury","Liability only in common areas","Red slide.","Sargent: a general duty of reasonable care."],
+["Landlord & Tenant",true,"Sargent v. Ross","A child falls down a steep, poorly designed outdoor staircase at a rental. Under Sargent v. Ross, what decides the landlord's liability?","Whether the landlord used reasonable care","Whether the landlord is strictly liable","Whether it happened in a common area only","Whether the tenant agreed to repairs","Reasonable care.","Sargent applies an ordinary reasonable care standard."],
+["Landlord & Tenant",true,"Adams v. Woodlands of Nashua","A tenant agreed to $1,200 a month, but the unfit unit is worth $800. Using Adams v. Woodlands of Nashua, what can she recover?","$400 a month","$1,200 a month","$800 a month","$2,000 a month","Agreed rent minus value as-is.","Adams: agreed rent minus fair rental value in the unfit condition."],
+["Landlord & Tenant",true,"Adams v. Woodlands of Nashua","Under what theory does Adams v. Woodlands of Nashua usually let a tenant recover?","The implied warranty of habitability","Constructive eviction","Paramount title","Promissory estoppel","Professor's slide wording.","Damages are often under the implied warranty of habitability."],
+["Landlord & Tenant",true,"Kajo Church Square v. Walker","Your professor's 'For the Exam' point on Kajo Church Square v. Walker: a lease ending when the tenant dies is what?","A tenancy at will","A tenancy for life","An estate for years","A periodic tenancy","Not a recognized life tenancy.","Kajo: it's a tenancy at will."],
+["Landlord & Tenant",false,"Fidelity Mutual v. Kaminsky","Protesters kept blocking a doctor's office; the landlord ignored complaints. He moved out and stopped paying. What did Fidelity Mutual v. Kaminsky find?","Constructive eviction, because the landlord's failure to act counts","No eviction, he wasn't locked out","He still owed rent","Only the protesters were responsible","Can doing nothing count?","Inaction that makes the space unusable is constructive eviction."],
+["Landlord & Tenant",false,"Stephens v. Stearns","A tenant fell on stairs with no handrail. Which approach did Stephens v. Stearns follow?","The Sargent v. Ross reasonable care standard","The old rule of no landlord liability","Strict liability for stairs","Liability only with a repair clause","It quotes Sargent.","Stephens adopted Sargent's reasonable care approach."]
+];
+
+const L = "ABCD";
+const stage = document.getElementById("stage");
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const shuffle = a => { for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; };
+const store = {
+  get(k) { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+
+// Build item objects with stable ids
+const BANK = [];
+Object.keys(CH).forEach(n => CH[n].q.forEach((r, i) => BANK.push({ id: `c${n}-${i}`, ch: +n, chName: CH[n].name, p: r[0], right: r[1], wrong: r.slice(2, 5), h: r[5], e: r[6] })));
+const CASEBANK = CASES.map((r, i) => ({ id: `case-${i}`, ch: 0, chName: r[0], assigned: r[1], name: r[2], p: r[3], right: r[4], wrong: r.slice(5, 8), h: r[8], e: r[9] }));
+
+// Prefer questions not shown recently, then randomize
+function draw(pool, n) {
+  const seen = new Set(store.get("seen") || []);
+  const fresh = shuffle(pool.filter(q => !seen.has(q.id)));
+  const old = shuffle(pool.filter(q => seen.has(q.id)));
+  const picked = fresh.concat(old).slice(0, n);
+  const left = fresh.length - picked.length;
+  // once every question in this pool has been seen, start over for it
+  const next = left <= 0 ? [...seen].filter(id => !pool.some(q => q.id === id)) : [...seen];
+  picked.forEach(q => next.push(q.id));
+  store.set("seen", next.slice(-1500));
+  return shuffle(picked).map(q => {
+    const opts = shuffle([q.right, ...q.wrong]);
+    return { ...q, opts, a: opts.indexOf(q.right) };
+  });
+}
+
+let Q = [], i = 0, picks = [], label = "", count = 15, lastPool = null, lastLabel = "";
+const prefs = store.get("prefs") || {};
+if (prefs.count) count = prefs.count;
+
+function bar() {
+  const p = document.getElementById("progress"), m = document.getElementById("meta");
+  if (!Q.length) { p.innerHTML = ""; m.innerHTML = ""; return; }
+  p.innerHTML = Q.map((q, k) => `<span class="${picks[k] === null ? (k === i ? "cur" : "") : (picks[k] === q.a ? "ok" : "no")}"></span>`).join("");
+  const right = picks.filter((v, k) => v === Q[k].a).length, done = picks.filter(v => v !== null).length;
+  m.innerHTML = `<span>${esc(label)} · ${i < Q.length ? `Q${i + 1} of ${Q.length}` : "Finished"}</span><span>${right} / ${done} correct</span>`;
+}
+
+function countPicker() {
+  const opts = [10, 15, 25, 0];
+  return `<div class="count"><span>Questions per round</span><div class="seg" role="group" aria-label="Questions per round">${opts.map(o => `<button data-count="${o}" aria-pressed="${count === o}">${o === 0 ? "All" : o}</button>`).join("")}</div></div>`;
+}
+
+function home() {
+  Q = []; picks = []; i = 0; bar();
+  const sel = new Set(prefs.sel || [6, 7, 8, 9, 10]);
+  const nA = CASEBANK.filter(c => c.assigned).length;
+  stage.innerHTML = `
+  <section class="card">
+    <h2>Study one chapter</h2>
+    <p class="note">Each round pulls a fresh set from the chapter's question bank and shuffles the answers.</p>
+    ${countPicker()}
+    <div class="chlist">${Object.keys(CH).map(n => `
+      <div class="ch"><span class="num">${n}</span><span class="txt"><b>${esc(CH[n].name)}</b><small>${CH[n].q.length} questions in the bank</small></span>
+      <button class="small-btn" data-study="${n}">Study</button></div>`).join("")}</div>
+  </section>
+  <section class="card">
+    <h2>Combine chapters</h2>
+    <p class="note">Check the chapters to mix. Questions are drawn from all of them at random.</p>
+    <div class="chlist">${Object.keys(CH).map(n => `
+      <label class="ch" for="mix${n}"><span class="num">${n}</span><span class="txt"><b>${esc(CH[n].name)}</b></span>
+      <input type="checkbox" id="mix${n}" value="${n}" ${sel.has(+n) ? "checked" : ""}></label>`).join("")}</div>
+    <button class="next" id="mixgo">Start combined quiz</button>
+  </section>
+  <section class="card">
+    <h2>All cases</h2>
+    <p class="note">${CASEBANK.length} case questions across chapters 6–10. ${nA} are on assigned cases from your course page.</p>
+    <label class="toggle" for="assignedOnly"><input type="checkbox" id="assignedOnly" ${prefs.assignedOnly ? "checked" : ""}> Assigned cases only</label>
+    <button class="next" id="casego">Start case quiz</button>
+  </section>`;
+
+  stage.querySelectorAll("[data-count]").forEach(b => b.onclick = () => {
+    count = +b.dataset.count; prefs.count = count; store.set("prefs", prefs);
+    stage.querySelectorAll("[data-count]").forEach(x => x.setAttribute("aria-pressed", String(+x.dataset.count === count)));
+  });
+  stage.querySelectorAll("[data-study]").forEach(b => b.onclick = () => {
+    const n = +b.dataset.study;
+    run(BANK.filter(q => q.ch === n), `Ch ${n} · ${CH[n].name}`);
+  });
+  const mixBtn = document.getElementById("mixgo");
+  const checks = [...stage.querySelectorAll('input[id^="mix"]')];
+  const syncMix = () => {
+    const chosen = checks.filter(c => c.checked).map(c => +c.value);
+    prefs.sel = chosen; store.set("prefs", prefs);
+    mixBtn.disabled = chosen.length === 0;
+    mixBtn.textContent = chosen.length ? `Start combined quiz (${chosen.length} chapter${chosen.length > 1 ? "s" : ""})` : "Pick at least one chapter";
+  };
+  checks.forEach(c => c.onchange = syncMix); syncMix();
+  mixBtn.onclick = () => {
+    const chosen = checks.filter(c => c.checked).map(c => +c.value);
+    run(BANK.filter(q => chosen.includes(q.ch)), chosen.length === 5 ? "All chapters" : `Ch ${chosen.join(", ")}`);
+  };
+  document.getElementById("assignedOnly").onchange = e => { prefs.assignedOnly = e.target.checked; store.set("prefs", prefs); };
+  document.getElementById("casego").onclick = () => {
+    const only = document.getElementById("assignedOnly").checked;
+    run(only ? CASEBANK.filter(c => c.assigned) : CASEBANK, only ? "Assigned cases" : "All cases");
+  };
+}
+
+function run(pool, lab) {
+  lastPool = pool; lastLabel = lab; label = lab;
+  Q = draw(pool, count === 0 ? pool.length : Math.min(count, pool.length));
+  picks = new Array(Q.length).fill(null); i = 0; show(); window.scrollTo(0, 0);
+}
+
+function show() {
+  bar();
+  if (i >= Q.length) return results();
+  const q = Q[i];
+  const tags = q.ch ? `<span class="tag">Ch ${q.ch} · ${esc(q.chName)}</span>` : `<span class="tag">${esc(q.chName)}</span><span class="tag ${q.assigned ? "assigned" : ""}">${q.assigned ? "Assigned case" : "Reading case"}</span>`;
+  stage.innerHTML = `<section class="card">
+    <div class="tags">${tags}</div>
+    <p class="q">${esc(q.p)}</p>
+    <div class="opts">${q.opts.map((t, k) => `<button class="opt" data-k="${k}"><span class="letter">${L[k]}</span><span>${esc(t)}</span></button>`).join("")}</div>
+    <button class="linkbtn" id="hintbtn">Show hint</button>
+    <div class="hint" id="hint" hidden>${esc(q.h)}</div>
+    <div id="fb"></div>
+    <button class="linkbtn" id="quit">Quit to menu</button>
+  </section>`;
+  document.getElementById("hintbtn").onclick = () => { document.getElementById("hint").hidden = false; document.getElementById("hintbtn").hidden = true; };
+  document.getElementById("quit").onclick = () => { home(); window.scrollTo(0, 0); };
+  stage.querySelectorAll(".opt").forEach(b => b.onclick = () => answer(+b.dataset.k));
+}
+
+function answer(k) {
+  const q = Q[i]; picks[i] = k;
+  stage.querySelectorAll(".opt").forEach(b => {
+    const n = +b.dataset.k; b.disabled = true;
+    if (n === q.a) b.classList.add("correct"); else if (n === k) b.classList.add("wrong");
+  });
+  document.getElementById("hintbtn").hidden = true;
+  const ok = k === q.a;
+  document.getElementById("fb").innerHTML = `<div class="feedback ${ok ? "good" : "bad"}"><strong>${ok ? "Correct." : "Not quite. The answer is " + L[q.a] + "."}</strong>${q.name ? `<em>${esc(q.name)}.</em> ` : ""}${esc(q.e)}</div>
+    <button class="next" id="next" style="margin-top:12px">${i === Q.length - 1 ? "See results" : "Next question"}</button>`;
+  bar();
+  const nx = document.getElementById("next");
+  nx.onclick = () => { i++; show(); window.scrollTo(0, 0); };
+  nx.focus({ preventScroll: true });
+}
+
+function summaryText() {
+  const right = picks.filter((v, k) => v === Q[k].a).length;
+  let t = `${label}: ${Math.round(right / Q.length * 100)}% (${right}/${Q.length})\n`;
+  Q.forEach((q, k) => { if (picks[k] !== q.a) t += `\n• ${q.name ? q.name + ": " : ""}${q.p}\n  You answered: ${q.opts[picks[k]]}\n  Correct: ${q.opts[q.a]}\n`; });
+  return t;
+}
+
+function results() {
+  const right = picks.filter((v, k) => v === Q[k].a).length;
+  const misses = Q.map((q, k) => ({ q, k })).filter(x => picks[x.k] !== x.q.a);
+  const groups = {};
+  Q.forEach((q, k) => { const g = q.ch ? `Ch ${q.ch} · ${q.chName}` : q.chName; groups[g] = groups[g] || [0, 0]; groups[g][1]++; if (picks[k] === q.a) groups[g][0]++; });
+  const showGroups = Object.keys(groups).length > 1;
+  stage.innerHTML = `<section class="card">
+    <span class="eyebrow">${esc(label)}</span>
+    <div class="score">${Math.round(right / Q.length * 100)}%</div>
+    <div>${right} correct · ${Q.length - right} incorrect</div>
+    ${showGroups ? `<div class="breakdown">${Object.entries(groups).map(([g, [r, t]]) => `<div><span>${esc(g)}</span><span>${r} / ${t}</span></div>`).join("")}</div>` : ""}
+    ${misses.length ? misses.map(({ q, k }) => `<div class="miss">${q.name ? `<span class="mq">${esc(q.name)}</span>` : ""}<span class="${q.name ? "" : "mq"}">${esc(q.p)}</span><span class="yours">You: ${esc(q.opts[picks[k]])}</span><span class="right">Correct: ${esc(q.opts[q.a])}</span></div>`).join("") : `<div class="miss">Perfect round. Every answer was right.</div>`}
+    <div class="row">
+      ${misses.length ? `<button class="next" id="retrymiss">Retry the ${misses.length} I missed</button>` : ""}
+      <button class="next" id="again">New round, same set</button>
+    </div>
+    <div class="row">
+      <button class="ghost" id="copy">Copy results</button>
+      <button class="ghost" id="menu">Back to menu</button>
+    </div>
+    <textarea id="out" readonly hidden></textarea>
+  </section>`;
+  if (misses.length) document.getElementById("retrymiss").onclick = () => {
+    label = lastLabel + " · retry";
+    Q = shuffle(misses.map(({ q }) => { const opts = shuffle([q.right, ...q.wrong]); return { ...q, opts, a: opts.indexOf(q.right) }; }));
+    picks = new Array(Q.length).fill(null); i = 0; show(); window.scrollTo(0, 0);
+  };
+  document.getElementById("again").onclick = () => run(lastPool, lastLabel);
+  document.getElementById("menu").onclick = () => { home(); window.scrollTo(0, 0); };
+  document.getElementById("copy").onclick = () => {
+    const txt = summaryText(), btn = document.getElementById("copy"), out = document.getElementById("out");
+    const fallback = () => { out.hidden = false; out.value = txt; out.select(); btn.textContent = "Select and copy the text below"; };
+    try { navigator.clipboard.writeText(txt).then(() => { btn.textContent = "Copied"; }, fallback); } catch (e) { fallback(); }
+  };
+}
+home();
+</script>
+
+</body></html>
